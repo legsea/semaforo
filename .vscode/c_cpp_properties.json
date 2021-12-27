@@ -1,0 +1,20 @@
+{
+    "configurations": [
+        {
+            "name": "Win32",
+            "includePath": [
+                "${workspaceFolder}/**",
+                "C:/Program Files (x86)/HI-TECH Software/PICC/9.83/include"
+            ],
+            "defines": [
+                "_DEBUG",
+                "UNICODE",
+                "_UNICODE"
+            ],
+            "intelliSenseMode": "${default}",
+            "cStandard": "c99",
+            "compilerPath": "C:/Program Files (x86)/HI-TECH Software/PICC/9.83/bin/cpp.exe"
+        }
+    ],
+    "version": 4
+}

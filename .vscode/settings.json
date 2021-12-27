@@ -1,0 +1,10 @@
+{
+    "files.associations": {
+        "*.c": "c",
+        "header.h": "c"
+    }
+/*     "files.associations": {
+        "picc.h": "c",
+        "htc.h": "c"
+    } */
+}
