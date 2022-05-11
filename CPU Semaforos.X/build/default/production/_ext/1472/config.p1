@@ -2487,54 +2487,57 @@ Version 3.2 HI-TECH Software Intermediate Code
 [; ;Header.h: 28: uint8_t allFlags;
 [; ;Header.h: 29: struct
 [; ;Header.h: 30: {
-[; ;Header.h: 31: unsigned enMovimiento : 1;
-[; ;Header.h: 32: unsigned enPiso0 : 1;
-[; ;Header.h: 33: unsigned enPiso1 : 1;
-[; ;Header.h: 34: unsigned enPiso2 : 1;
-[; ;Header.h: 35: unsigned enEmergencia : 1;
-[; ;Header.h: 36: };
-[; ;Header.h: 38: } Flags_t;
-[; ;Header.h: 40: typedef union
+[; ;Header.h: 31: unsigned delay : 1;
+[; ;Header.h: 32: unsigned delayReloj : 1;
+[; ;Header.h: 33: };
+[; ;Header.h: 35: } Flags_t;
+[; ;Header.h: 37: typedef union
+[; ;Header.h: 38: {
+[; ;Header.h: 39: uint16_t twoBytes;
+[; ;Header.h: 40: struct
 [; ;Header.h: 41: {
-[; ;Header.h: 42: uint16_t twoBytes;
-[; ;Header.h: 43: struct
-[; ;Header.h: 44: {
-[; ;Header.h: 45: unsigned low : 8;
-[; ;Header.h: 46: unsigned high : 8;
-[; ;Header.h: 47: };
-[; ;Header.h: 49: } Split_t;
-[; ;Header.h: 51: typedef union
+[; ;Header.h: 42: unsigned low : 8;
+[; ;Header.h: 43: unsigned high : 8;
+[; ;Header.h: 44: };
+[; ;Header.h: 46: } Split_t;
+[; ;Header.h: 48: typedef union
+[; ;Header.h: 49: {
+[; ;Header.h: 50: uint8_t entradas;
+[; ;Header.h: 51: struct
 [; ;Header.h: 52: {
-[; ;Header.h: 53: uint8_t entradas;
-[; ;Header.h: 54: struct
-[; ;Header.h: 55: {
-[; ;Header.h: 56: unsigned rampa1 : 1;
-[; ;Header.h: 57: unsigned rampa2 : 1;
-[; ;Header.h: 58: unsigned porton : 1;
-[; ;Header.h: 59: unsigned semaforo : 1;
-[; ;Header.h: 60: };
-[; ;Header.h: 61: } EntradaB_t;
-[; ;Header.h: 63: typedef struct
-[; ;Header.h: 64: {
-[; ;Header.h: 65: uint8_t t500useg;
-[; ;Header.h: 66: uint8_t t100mseg;
-[; ;Header.h: 67: uint8_t loco;
-[; ;Header.h: 68: uint8_t t1seg;
-[; ;Header.h: 69: } Timers_t;
-[; ;Header.h: 71: typedef struct
-[; ;Header.h: 72: {
-[; ;Header.h: 73: uint8_t antirebote;
-[; ;Header.h: 74: } Contadores_t;
-[; ;Header.h: 76: typedef struct
-[; ;Header.h: 77: {
-[; ;Header.h: 78: uint8_t estado;
-[; ;Header.h: 79: SystemFlags_t systemFlags;
-[; ;Header.h: 80: Timers_t tiempos;
-[; ;Header.h: 81: EntradaB_t entradaB;
-[; ;Header.h: 82: EntradaB_t auxEntradaB;
-[; ;Header.h: 83: Contadores_t contador;
-[; ;Header.h: 84: Flags_t flags;
-[; ;Header.h: 85: } Placa_t;
+[; ;Header.h: 53: unsigned rampa1 : 1;
+[; ;Header.h: 54: unsigned rampa2 : 1;
+[; ;Header.h: 55: unsigned porton : 1;
+[; ;Header.h: 56: unsigned sincronismo : 1;
+[; ;Header.h: 57: unsigned rampa3 : 1;
+[; ;Header.h: 58: };
+[; ;Header.h: 59: } EntradaB_t;
+[; ;Header.h: 61: typedef struct
+[; ;Header.h: 62: {
+[; ;Header.h: 63: uint8_t t500useg;
+[; ;Header.h: 64: uint8_t t100mseg;
+[; ;Header.h: 65: uint8_t loco;
+[; ;Header.h: 66: uint8_t t1seg;
+[; ;Header.h: 67: uint8_t antirebote;
+[; ;Header.h: 68: uint8_t delay;
+[; ;Header.h: 69: uint8_t delayReloj;
+[; ;Header.h: 70: } Timers_t;
+[; ;Header.h: 72: typedef struct
+[; ;Header.h: 73: {
+[; ;Header.h: 74: uint8_t estado;
+[; ;Header.h: 75: SystemFlags_t systemFlags;
+[; ;Header.h: 76: Timers_t tiempos;
+[; ;Header.h: 77: EntradaB_t entradaB;
+[; ;Header.h: 78: EntradaB_t auxEntradaB;
+[; ;Header.h: 79: Flags_t flags;
+[; ;Header.h: 80: } Placa_t;
+[; ;control.h: 6: void initCPU(Placa_t *);
+[; ;control.h: 7: void esperaAccion(Placa_t *);
+[; ;control.h: 8: void rampaUno(Placa_t *);
+[; ;control.h: 9: void rampaDos(Placa_t *);
+[; ;control.h: 10: void rampaTres(Placa_t *);
+[; ;control.h: 12: void llamaPorton(Placa_t *);
+[; ;control.h: 13: void counting(Placa_t *);
 [; ;funciones.h: 4: void controlTiempos(Placa_t *);
 [; ;funciones.h: 5: void leerEntradasB(Placa_t *);
 "4 ../config.c
@@ -2567,7 +2570,7 @@ Version 3.2 HI-TECH Software Intermediate Code
 [e ( _configOscilador ..  ]
 [; ;config.c: 12: }
 "12
-[e :UE 149 ]
+[e :UE 148 ]
 }
 "15
 [v _configPorts `(v  1 ef ]
@@ -2599,11 +2602,11 @@ Version 3.2 HI-TECH Software Intermediate Code
 [e = _nRBPU -> -> 1 `i `b ]
 [; ;config.c: 27: if (0 == 1)
 "27
-[e $ ! == -> 0 `i -> 1 `i 151  ]
+[e $ ! == -> 0 `i -> 1 `i 150  ]
 [; ;config.c: 28: nRBPU = 0;
 "28
 [e = _nRBPU -> -> 0 `i `b ]
-[e :U 151 ]
+[e :U 150 ]
 [; ;config.c: 30: WPUB = 0xFF;
 "30
 [e = _WPUB -> -> 255 `i `uc ]
@@ -2615,7 +2618,7 @@ Version 3.2 HI-TECH Software Intermediate Code
 [e = _TRISC -> -> 7 `i `uc ]
 [; ;config.c: 36: }
 "36
-[e :UE 150 ]
+[e :UE 149 ]
 }
 "39
 [v _configInterrupts `(v  1 ef ]
@@ -2653,7 +2656,7 @@ Version 3.2 HI-TECH Software Intermediate Code
 [e = _INTEDG -> -> 1 `i `b ]
 [; ;config.c: 50: }
 "50
-[e :UE 152 ]
+[e :UE 151 ]
 }
 "53
 [v _configCCP `(v  1 ef ]
@@ -2676,7 +2679,7 @@ Version 3.2 HI-TECH Software Intermediate Code
 [e = _CCP2CON -> -> 0 `i `uc ]
 [; ;config.c: 59: }
 "59
-[e :UE 153 ]
+[e :UE 152 ]
 }
 "62
 [v _configTimers `(v  1 ef ]
@@ -2762,7 +2765,7 @@ Version 3.2 HI-TECH Software Intermediate Code
 [e = _TMR2 -> -> 0 `i `uc ]
 [; ;config.c: 94: }
 "94
-[e :UE 154 ]
+[e :UE 153 ]
 }
 "97
 [v _configComparadores `(v  1 ef ]
@@ -2779,7 +2782,7 @@ Version 3.2 HI-TECH Software Intermediate Code
 [e = _CM2CON0 -> -> 0 `i `uc ]
 [; ;config.c: 102: }
 "102
-[e :UE 155 ]
+[e :UE 154 ]
 }
 "105
 [v _configOscilador `(v  1 ef ]
@@ -2793,7 +2796,7 @@ Version 3.2 HI-TECH Software Intermediate Code
 [e = _OSCCON -> -> 112 `i `uc ]
 [; ;config.c: 107: }
 "107
-[e :UE 156 ]
+[e :UE 155 ]
 }
 "110
 [v _configADC `(v  1 ef ]
@@ -2828,5 +2831,5 @@ Version 3.2 HI-TECH Software Intermediate Code
 [e = _CHS3 -> -> 0 `i `b ]
 [; ;config.c: 123: }
 "123
-[e :UE 157 ]
+[e :UE 156 ]
 }

@@ -28,11 +28,8 @@ typedef union
     uint8_t allFlags;
     struct
     {
-        unsigned enMovimiento : 1;
-        unsigned enPiso0 : 1;
-        unsigned enPiso1 : 1;
-        unsigned enPiso2 : 1;
-        unsigned enEmergencia : 1;
+        unsigned delay : 1;
+        unsigned delayReloj : 1;
     };
 
 } Flags_t;
@@ -56,7 +53,8 @@ typedef union
         unsigned rampa1 : 1; // LSB
         unsigned rampa2 : 1;
         unsigned porton : 1;
-        unsigned semaforo : 1;
+        unsigned sincronismo : 1;
+        unsigned rampa3 : 1;
     };
 } EntradaB_t;
 
@@ -66,12 +64,10 @@ typedef struct
     uint8_t t100mseg;
     uint8_t loco;
     uint8_t t1seg;
-} Timers_t;
-
-typedef struct
-{
     uint8_t antirebote;
-} Contadores_t;
+    uint8_t delay;
+    uint8_t delayReloj;
+} Timers_t;
 
 typedef struct
 {
@@ -80,11 +76,20 @@ typedef struct
     Timers_t tiempos;
     EntradaB_t entradaB;
     EntradaB_t auxEntradaB;
-    Contadores_t contador;
     Flags_t flags;
 } Placa_t;
 
-//#include "control.h"
+#define INICIO 10
+#define STANBY 20
+#define RAMPA1 30
+#define RAMPA2 40
+#define RAMPA3 45
+#define PORTON 50
+#define CONTANDO 60
+
+#define OFF 1
+
+#include "control.h"
 #include "funciones.h"
 
 #endif //  _HEADER_H

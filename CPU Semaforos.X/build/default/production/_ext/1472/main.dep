@@ -1,5 +1,6 @@
 C:\Program Files (x86)\HI-TECH Software\PICC\9.83\include\stdarg.h
 C:\Program Files (x86)\HI-TECH Software\PICC\9.83\include\htc.h
+../control.h
 ../16F886.h
 ../funciones.h
 C:\Program Files (x86)\HI-TECH Software\PICC\9.83\include\eeprom_routines.h

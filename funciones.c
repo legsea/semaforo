@@ -4,7 +4,7 @@ void controlTiempos(Placa_t *this)
 {
     this->systemFlags.inteTimer0 = 0; // Limpio flag interrupcion
 
-    this->tiempos.t500useg++; // Incremento contador
+    this->tiempos.t500useg++; // Incremento tiempos
 
     if (this->tiempos.t500useg == 20) // Parasron 10mseg?
     {
@@ -18,11 +18,31 @@ void controlTiempos(Placa_t *this)
         if (this->tiempos.t100mseg == 10)
         {
             this->tiempos.t100mseg = 0; // Pasaron 100mseg
+
+            if (this->tiempos.delay)
+            {
+                this->tiempos.delay--;
+                if (!this->tiempos.delay)
+                {
+                    this->flags.delay = 0;
+                }
+            }
+
+            if (this->tiempos.delayReloj)
+            {
+                this->tiempos.delayReloj--;
+
+                if (this->tiempos.delayReloj == 0)
+                {
+                    relojRampa = 0;  // Apago Rele
+                    relojPorton = 0; // Apago Rele
+                }
+            }
         }
     }
 }
 
-#define MASCARAPUERTOB 0X0F
+#define MASCARAPUERTOB 0X1F
 void leerEntradasB(Placa_t *this)
 {
     uint8_t auxiliarLectura;
@@ -39,10 +59,10 @@ void leerEntradasB(Placa_t *this)
 
     if (diferencia == 0) // Si dio cero, son iguales
     {
-        this->contador.antirebote++;         // Incremento antirebote
-        if (this->contador.antirebote == 30) // Pasaron como 300 mseg
+        this->tiempos.antirebote++;         // Incremento antirebote
+        if (this->tiempos.antirebote == 50) // Pasaron como 300 mseg
         {
-            this->contador.antirebote = 0;
+            this->tiempos.antirebote = 0;
             this->entradaB.entradas = auxiliarLectura;
 
             if (Optos)

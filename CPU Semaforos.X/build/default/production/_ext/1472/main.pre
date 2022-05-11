@@ -1667,11 +1667,8 @@ typedef union
 uint8_t allFlags;
 struct
 {
-unsigned enMovimiento : 1;
-unsigned enPiso0 : 1;
-unsigned enPiso1 : 1;
-unsigned enPiso2 : 1;
-unsigned enEmergencia : 1;
+unsigned delay : 1;
+unsigned delayReloj : 1;
 };
 
 } Flags_t;
@@ -1695,7 +1692,8 @@ struct
 unsigned rampa1 : 1;
 unsigned rampa2 : 1;
 unsigned porton : 1;
-unsigned semaforo : 1;
+unsigned sincronismo : 1;
+unsigned rampa3 : 1;
 };
 } EntradaB_t;
 
@@ -1705,12 +1703,10 @@ uint8_t t500useg;
 uint8_t t100mseg;
 uint8_t loco;
 uint8_t t1seg;
-} Timers_t;
-
-typedef struct
-{
 uint8_t antirebote;
-} Contadores_t;
+uint8_t delay;
+uint8_t delayReloj;
+} Timers_t;
 
 typedef struct
 {
@@ -1719,19 +1715,84 @@ SystemFlags_t systemFlags;
 Timers_t tiempos;
 EntradaB_t entradaB;
 EntradaB_t auxEntradaB;
-Contadores_t contador;
 Flags_t flags;
 } Placa_t;
+
+# 6 "../control.h"
+void initCPU(Placa_t *);
+void esperaAccion(Placa_t *);
+void rampaUno(Placa_t *);
+void rampaDos(Placa_t *);
+void rampaTres(Placa_t *);
+
+void llamaPorton(Placa_t *);
+void counting(Placa_t *);
 
 # 4 "../funciones.h"
 void controlTiempos(Placa_t *);
 void leerEntradasB(Placa_t *);
 
 # 14 "../main.c"
-asm("\tpsect config,class=CONFIG,delta=2"); asm("\tdw ""0xFFFC &0xFFF7 &0xFFEF &0xFFDF &0xFFBF &0xFF7F &0xFFFF &0xFBFF &0xFFFF &0xEFFF");
-asm("\tpsect config,class=CONFIG,delta=2"); asm("\tdw ""0xFFFF &0xFFFF");
+asm("\tpsect config,class=CONFIG,delta=2"); asm("\tdw ""0XEB04");
 
+# 19
 Placa_t controlCPU;
+
+void main(void)
+{
+
+configDevice();
+
+controlCPU.estado = 10;
+
+while (1)
+{
+
+if (controlCPU.systemFlags.inteTimer0)
+controlTiempos(&controlCPU);
+
+if (controlCPU.systemFlags.leerEntradas)
+{
+controlCPU.systemFlags.leerEntradas = 0;
+leerEntradasB(&controlCPU);
+}
+
+switch (controlCPU.estado)
+{
+case 10:
+initCPU(&controlCPU);
+break;
+
+case 20:
+esperaAccion(&controlCPU);
+break;
+
+case 30:
+rampaUno(&controlCPU);
+break;
+
+case 40:
+rampaDos(&controlCPU);
+break;
+
+case 45:
+rampaTres(&controlCPU);
+break;
+
+case 50:
+llamaPorton(&controlCPU);
+break;
+
+case 60:
+counting(&controlCPU);
+break;
+
+default:
+initCPU(&controlCPU);
+break;
+}
+}
+}
 
 void interrupt interrupciones(void)
 {
@@ -1740,26 +1801,5 @@ if (TMR0IE && TMR0IF)
 TMR0IF = 0;
 controlCPU.systemFlags.inteTimer0 = 1;
 TMR0 = 5;
-}
-}
-
-void main(void)
-{
-
-configDevice();
-
-while (1)
-{
-
-if (controlCPU.systemFlags.inteTimer0)
-{
-controlTiempos(&controlCPU);
-}
-
-if (controlCPU.systemFlags.leerEntradas)
-{
-controlCPU.systemFlags.leerEntradas = 0;
-leerEntradasB(&controlCPU);
-}
 }
 }

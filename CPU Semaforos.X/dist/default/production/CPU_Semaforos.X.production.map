@@ -15,7 +15,7 @@ Linker command line:
   -ACONFIG=02007h-02008h -pconfig=CONFIG -DCONFIG=2 -AIDLOC=02000h-02003h \
   -pidloc=IDLOC -DIDLOC=2 -AEEDATA=00h-0FFh/02100h -peeprom_data=EEDATA \
   -DEEDATA=2 -DCODE=2 -DSTRCODE=2 -DSTRING=2 -DCONST=2 -DENTRY=2 -k \
-  C:\Users\Tincho\AppData\Local\Temp\s5q4.obj \
+  C:\Users\Tincho\AppData\Local\Temp\s55k.obj \
   dist/default/production\CPU_Semaforos.X.production.obj 
 
 Object code version is 3.10
@@ -25,20 +25,27 @@ Machine type is 16F886
 
 
                 Name                               Link     Load   Length Selector   Space Scale
-C:\Users\Tincho\AppData\Local\Temp\s5q4.obj
+C:\Users\Tincho\AppData\Local\Temp\s55k.obj
                 end_init                              C        C        3        8       0
                 reset_vec                             0        0        3        0       0
 dist/default/production\CPU_Semaforos.X.production.obj
                 intentry                              4        4        8        8       0
-                config                             2007     2007        2     400E       0
-                text272                              FC       FC       10        8       0
-                text264                              BD       BD       27        8       0
-                text263                              7D       7D       40        8       0
-                text262                               F        F       6E        8       0
-                maintext                             E4       E4       18        8       0
+                config                             2007     2007        1     400E       0
+                text417                             1FE      1FE       10        8       0
+                text409                              E2       E2       4D        8       0
+                text408                             12F      12F       40        8       0
+                text407                             20E      20E        A        8       0
+                text406                             16F      16F       25        8       0
+                text405                             1D5      1D5       15        8       0
+                text404                             1C0      1C0       15        8       0
+                text403                             1AB      1AB       15        8       0
+                text402                             194      194       17        8       0
+                text401                             1EA      1EA       14        8       0
+                text400                               F        F       6E        8       0
+                maintext                             7D       7D       65        8       0
                 cstackCOMMON                         70       70        5       70       1
-                bssBANK0                             20       20        A       20       1
-                cinit                               10C      10C        E        8       0
+                cinit                               218      218        4        8       0
+                nvBANK0                              20       20        C       20       1
 
 TOTAL           Name                               Link     Load   Length     Space
         CLASS   CONST          
@@ -47,12 +54,19 @@ TOTAL           Name                               Link     Load   Length     Sp
                 end_init                              C        C        3         0
                 intentry                              4        4        8         0
                 reset_vec                             0        0        3         0
-                text272                              FC       FC       10         0
-                text264                              BD       BD       27         0
-                text263                              7D       7D       40         0
-                text262                               F        F       6E         0
-                maintext                             E4       E4       18         0
-                cinit                               10C      10C        E         0
+                text417                             1FE      1FE       10         0
+                text409                              E2       E2       4D         0
+                text408                             12F      12F       40         0
+                text407                             20E      20E        A         0
+                text406                             16F      16F       25         0
+                text405                             1D5      1D5       15         0
+                text404                             1C0      1C0       15         0
+                text403                             1AB      1AB       15         0
+                text402                             194      194       17         0
+                text401                             1EA      1EA       14         0
+                text400                               F        F       6E         0
+                maintext                             7D       7D       65         0
+                cinit                               218      218        4         0
 
         CLASS   STRCODE        
 
@@ -61,7 +75,7 @@ TOTAL           Name                               Link     Load   Length     Sp
         CLASS   STRING         
 
         CLASS   BANK0          
-                bssBANK0                             20       20        A         1
+                nvBANK0                              20       20        C         1
 
         CLASS   BANK1          
 
@@ -86,7 +100,7 @@ TOTAL           Name                               Link     Load   Length     Sp
         CLASS   SFR3           
 
         CLASS   CONFIG         
-                config                             2007     2007        2         0
+                config                             2007     2007        1         0
 
         CLASS   IDLOC          
 
@@ -97,29 +111,30 @@ TOTAL           Name                               Link     Load   Length     Sp
 SEGMENTS        Name                           Load    Length   Top    Selector   Space  Class     Delta
 
                 reset_vec                      000000  000003  000003         0       0  CODE        2
-                intentry                       000004  000116  00011A         8       0  CODE        2
-                bssBANK0                       000020  00000A  00002A        20       1  BANK0       1
+                intentry                       000004  000218  00021C         8       0  CODE        2
+                nvBANK0                        000020  00000C  00002C        20       1  BANK0       1
                 cstackCOMMON                   000070  000005  000075        70       1  COMMON      1
-                config                         002007  000002  002009      400E       0  CONFIG      2
+                config                         002007  000001  002008      400E       0  CONFIG      2
 
 
 UNUSED ADDRESS RANGES
 
         Name                Unused          Largest block    Delta
-        BANK0            002A-006F             46           1
+        BANK0            002C-006F             44           1
         BANK1            00A0-00EF             50           1
         BANK2            0110-016F             60           1
         BANK3            0190-01EF             60           1
         CODE             0003-0003              1           2
-                         011A-1FFF            800
+                         021C-1FFF            800
         COMMON           0075-007D              9           1
+        CONFIG           2008-2008              1           2
         CONST            0003-0003              1           2
-                         011A-1FFF            100
+                         021C-1FFF            100
         EEDATA           2100-21FF            100           2
         ENTRY            0003-0003              1           2
-                         011A-1FFF            100
+                         021C-1FFF            100
         IDLOC            2000-2003              4           2
-        RAM              002A-006F             46           1
+        RAM              002C-006F             44           1
                          00A0-00EF             50
                          0110-016F             60
                          0190-01EF             60
@@ -128,9 +143,9 @@ UNUSED ADDRESS RANGES
         SFR2             0100-010F             10           1
         SFR3             0180-018F             10           1
         STRCODE          0003-0003              1           2
-                         011A-1FFF           1EE6
+                         021C-1FFF           1DE4
         STRING           0003-0003              1           2
-                         011A-1FFF            100
+                         021C-1FFF            100
 
                                   Symbol Table
 
@@ -143,9 +158,16 @@ UNUSED ADDRESS RANGES
 ??_configPorts                cstackCOMMON 0072
 ??_configTimers               cstackCOMMON 0072
 ??_controlTiempos             cstackCOMMON 0072
+??_counting                   cstackCOMMON 0072
+??_esperaAccion               cstackCOMMON 0072
+??_initCPU                    cstackCOMMON 0072
 ??_interrupciones             cstackCOMMON 0070
 ??_leerEntradasB              cstackCOMMON 0072
+??_llamaPorton                cstackCOMMON 0072
 ??_main                       cstackCOMMON 0075
+??_rampaDos                   cstackCOMMON 0072
+??_rampaTres                  cstackCOMMON 0072
+??_rampaUno                   cstackCOMMON 0072
 ?_configADC                   cstackCOMMON 0070
 ?_configCCP                   cstackCOMMON 0070
 ?_configComparadores          cstackCOMMON 0070
@@ -155,9 +177,16 @@ UNUSED ADDRESS RANGES
 ?_configPorts                 cstackCOMMON 0070
 ?_configTimers                cstackCOMMON 0070
 ?_controlTiempos              cstackCOMMON 0070
+?_counting                    cstackCOMMON 0070
+?_esperaAccion                cstackCOMMON 0070
+?_initCPU                     cstackCOMMON 0070
 ?_interrupciones              cstackCOMMON 0070
 ?_leerEntradasB               cstackCOMMON 0070
+?_llamaPorton                 cstackCOMMON 0070
 ?_main                        cstackCOMMON 0070
+?_rampaDos                    cstackCOMMON 0070
+?_rampaTres                   cstackCOMMON 0070
+?_rampaUno                    cstackCOMMON 0070
 _ADCON0                       (abs)        001F
 _ADCON1                       (abs)        009F
 _ANSEL                        (abs)        0188
@@ -185,6 +214,11 @@ _PS0                          (abs)        0408
 _PS1                          (abs)        0409
 _PS2                          (abs)        040A
 _PSA                          (abs)        040B
+_RA0                          (abs)        0028
+_RA1                          (abs)        0029
+_RA2                          (abs)        002A
+_RA3                          (abs)        002B
+_RA4                          (abs)        002C
 _RBIE                         (abs)        005B
 _RBIF                         (abs)        0058
 _T0CS                         (abs)        040D
@@ -222,12 +256,11 @@ __Hbank0                      bank0        0000
 __Hbank1                      bank1        0000
 __Hbank2                      bank2        0000
 __Hbank3                      bank3        0000
-__HbssBANK0                   bssBANK0     0000
 __Hcinit                      cinit        0000
 __Hclrtext                    clrtext      0000
 __Hcode                       code         0000
 __Hcommon                     common       0000
-__Hconfig                     config       2009
+__Hconfig                     config       2008
 __HcstackCOMMON               cstackCOMMON 0000
 __Heeprom_data                eeprom_data  0000
 __Hend_init                   end_init     000F
@@ -236,6 +269,7 @@ __Hidloc                      idloc        0000
 __Hinit                       init         000C
 __Hintentry                   intentry     000C
 __Hmaintext                   maintext     0000
+__HnvBANK0                    nvBANK0      0000
 __Hpa_nodes                   pa_nodes     0000
 __Hpowerup                    powerup      0000
 __Hram                        ram          0000
@@ -251,7 +285,6 @@ __Lbank0                      bank0        0000
 __Lbank1                      bank1        0000
 __Lbank2                      bank2        0000
 __Lbank3                      bank3        0000
-__LbssBANK0                   bssBANK0     0000
 __Lcinit                      cinit        0000
 __Lclrtext                    clrtext      0000
 __Lcode                       code         0000
@@ -265,6 +298,7 @@ __Lidloc                      idloc        0000
 __Linit                       init         000C
 __Lintentry                   intentry     0004
 __Lmaintext                   maintext     0000
+__LnvBANK0                    nvBANK0      0000
 __Lpa_nodes                   pa_nodes     0000
 __Lpowerup                    powerup      0000
 __Lram                        ram          0000
@@ -275,38 +309,52 @@ __Lsfr2                       sfr2         0000
 __Lsfr3                       sfr3         0000
 __Lstrings                    strings      0000
 __Ltext                       text         0000
-__S0                          (abs)        2009
+__S0                          (abs)        2008
 __S1                          (abs)        0075
 __S2                          (abs)        0000
-__end_of_configADC            text262      006D
-__end_of_configCCP            text262      0074
-__end_of_configComparadores   text262      0078
-__end_of_configDevice         text262      0022
-__end_of_configInterrupts     text262      0041
-__end_of_configOscilador      text262      007D
-__end_of_configPorts          text262      0037
-__end_of_configTimers         text262      0061
-__end_of_controlTiempos       text264      00E4
-__end_of_interrupciones       text272      010C
-__end_of_leerEntradasB        text263      00BD
-__end_of_main                 maintext     00FC
-__pbssBANK0                   bssBANK0     0020
+__end_of_configADC            text400      006D
+__end_of_configCCP            text400      0074
+__end_of_configComparadores   text400      0078
+__end_of_configDevice         text400      0022
+__end_of_configInterrupts     text400      0041
+__end_of_configOscilador      text400      007D
+__end_of_configPorts          text400      0037
+__end_of_configTimers         text400      0061
+__end_of_controlTiempos       text409      012F
+__end_of_counting             text401      01FE
+__end_of_esperaAccion         text406      0194
+__end_of_initCPU              text407      0218
+__end_of_interrupciones       text417      020E
+__end_of_leerEntradasB        text408      016F
+__end_of_llamaPorton          text402      01AB
+__end_of_main                 maintext     00E2
+__end_of_rampaDos             text404      01D5
+__end_of_rampaTres            text403      01C0
+__end_of_rampaUno             text405      01EA
 __pcstackCOMMON               cstackCOMMON 0070
 __pintentry                   intentry     0004
-__pmaintext                   maintext     00E4
-__ptext261                    text261      0000
-__ptext262                    text262      000F
-__ptext263                    text263      007D
-__ptext264                    text264      00BD
-__ptext265                    text262      0078
-__ptext266                    text262      0074
-__ptext267                    text262      006D
-__ptext268                    text262      0061
-__ptext269                    text262      0041
-__ptext270                    text262      0037
-__ptext271                    text262      0022
-__ptext272                    text272      00FC
-__ptext273                    text273      0000
+__pmaintext                   maintext     007D
+__pnvBANK0                    nvBANK0      0020
+__ptext399                    text399      0000
+__ptext400                    text400      000F
+__ptext401                    text401      01EA
+__ptext402                    text402      0194
+__ptext403                    text403      01AB
+__ptext404                    text404      01C0
+__ptext405                    text405      01D5
+__ptext406                    text406      016F
+__ptext407                    text407      020E
+__ptext408                    text408      012F
+__ptext409                    text409      00E2
+__ptext410                    text400      0078
+__ptext411                    text400      0074
+__ptext412                    text400      006D
+__ptext413                    text400      0061
+__ptext414                    text400      0041
+__ptext415                    text400      0037
+__ptext416                    text400      0022
+__ptext417                    text417      01FE
+__ptext418                    text418      0000
 __size_of_configADC           (abs)        0000
 __size_of_configCCP           (abs)        0000
 __size_of_configComparadores  (abs)        0000
@@ -316,30 +364,47 @@ __size_of_configOscilador     (abs)        0000
 __size_of_configPorts         (abs)        0000
 __size_of_configTimers        (abs)        0000
 __size_of_controlTiempos      (abs)        0000
+__size_of_counting            (abs)        0000
+__size_of_esperaAccion        (abs)        0000
+__size_of_initCPU             (abs)        0000
 __size_of_interrupciones      (abs)        0000
 __size_of_leerEntradasB       (abs)        0000
+__size_of_llamaPorton         (abs)        0000
 __size_of_main                (abs)        0000
-_configADC                    text262      0061
-_configCCP                    text262      006D
-_configComparadores           text262      0074
-_configDevice                 text262      000F
-_configInterrupts             text262      0037
-_configOscilador              text262      0078
-_configPorts                  text262      0022
-_configTimers                 text262      0041
-_controlCPU                   bssBANK0     0020
-_controlTiempos               text264      00BD
+__size_of_rampaDos            (abs)        0000
+__size_of_rampaTres           (abs)        0000
+__size_of_rampaUno            (abs)        0000
+_configADC                    text400      0061
+_configCCP                    text400      006D
+_configComparadores           text400      0074
+_configDevice                 text400      000F
+_configInterrupts             text400      0037
+_configOscilador              text400      0078
+_configPorts                  text400      0022
+_configTimers                 text400      0041
+_controlCPU                   nvBANK0      0020
+_controlTiempos               text409      00E2
+_counting                     text401      01EA
+_esperaAccion                 text406      016F
 _exit                         init         000C
-_interrupciones               text272      00FC
-_leerEntradasB                text263      007D
-_main                         maintext     00E4
+_initCPU                      text407      020E
+_interrupciones               text417      01FE
+_leerEntradasB                text408      012F
+_llamaPorton                  text402      0194
+_main                         maintext     007D
 _nRBPU                        (abs)        040F
 _nT1SYNC                      (abs)        0082
+_rampaDos                     text404      01C0
+_rampaTres                    text403      01AB
+_rampaUno                     text405      01D5
 btemp                         (abs)        007E
 controlTiempos@this           cstackCOMMON 0072
-end_of_initialization         cinit        0116
-i1l4554                                        
-i1l4560                                        
+counting@controlCPU           cstackCOMMON 0072
+end_of_initialization         cinit        0218
+esperaAccion@controlCPU       cstackCOMMON 0072
+i1l5691                                        
+i1l5697                                        
+initCPU@controlCPU            cstackCOMMON 0072
 interrupt_function            intentry     0004
 intlevel0                     functab      0000
 intlevel1                     functab      0000
@@ -349,66 +414,86 @@ intlevel4                     functab      0000
 intlevel5                     functab      0000
 l1000                                          
 l1003                                          
-l4432                                          
-l4434                                          
-l4436                                          
-l4440                                          
-l4442                                          
-l4444                                          
-l4446                                          
-l4448                                          
-l4450                                          
-l4452                                          
-l4454                                          
-l4456                                          
-l4458                                          
-l4460                                          
-l4462                                          
-l4464                                          
-l4466                                          
-l4468                                          
-l4470                                          
-l4472                                          
-l4474                                          
-l4476                                          
-l4478                                          
-l4480                                          
-l4482                                          
-l4484                                          
-l4486                                          
-l4488                                          
-l4490                                          
-l4492                                          
-l4494                                          
-l4496                                          
-l4498                                          
-l4500                                          
-l4502                                          
-l4504                                          
-l4506                                          
-l4510                                          
-l4512                                          
-l4514                                          
-l4518                                          
-l4520                                          
-l4522                                          
-l4526                                          
-l4530                                          
-l4534                                          
-l4536                                          
-l4540                                          
-l4544                                          
-l4548                                          
-l4552                                          
-l4562                                          
-l4564                                          
-l4566                                          
-l4568                                          
-l4570                                          
-l4572                                          
-l4574                                          
-l4576                                          
-l4586                                          
+l3960                                          
+l3970                                          
+l3973                                          
+l3976                                          
+l3979                                          
+l5521                                          
+l5523                                          
+l5525                                          
+l5529                                          
+l5531                                          
+l5533                                          
+l5535                                          
+l5537                                          
+l5539                                          
+l5541                                          
+l5543                                          
+l5545                                          
+l5547                                          
+l5549                                          
+l5551                                          
+l5553                                          
+l5555                                          
+l5557                                          
+l5559                                          
+l5561                                          
+l5563                                          
+l5565                                          
+l5567                                          
+l5569                                          
+l5571                                          
+l5573                                          
+l5575                                          
+l5577                                          
+l5579                                          
+l5581                                          
+l5583                                          
+l5585                                          
+l5587                                          
+l5589                                          
+l5591                                          
+l5593                                          
+l5595                                          
+l5599                                          
+l5601                                          
+l5603                                          
+l5607                                          
+l5609                                          
+l5611                                          
+l5615                                          
+l5625                                          
+l5629                                          
+l5633                                          
+l5635                                          
+l5639                                          
+l5643                                          
+l5647                                          
+l5651                                          
+l5653                                          
+l5655                                          
+l5657                                          
+l5667                                          
+l5669                                          
+l5671                                          
+l5673                                          
+l5675                                          
+l5677                                          
+l5679                                          
+l5681                                          
+l5683                                          
+l5689                                          
+l5699                                          
+l5701                                          
+l5703                                          
+l5705                                          
+l5707                                          
+l5709                                          
+l5711                                          
+l5713                                          
+l5715                                          
+l5725                                          
 l981                                           
 l985                                           
 l988                                           
@@ -418,8 +503,12 @@ l997
 leerEntradasB@auxiliarLectura cstackCOMMON 0073
 leerEntradasB@diferencia      cstackCOMMON 0072
 leerEntradasB@this            cstackCOMMON 0074
+llamaPorton@controlCPU        cstackCOMMON 0072
+rampaDos@controlCPU           cstackCOMMON 0072
+rampaTres@controlCPU          cstackCOMMON 0072
+rampaUno@controlCPU           cstackCOMMON 0072
 reset_vec                     reset_vec    0000
 saved_w                       (abs)        007E
 start                         init         000C
-start_initialization          cinit        010C
+start_initialization          cinit        0218
 wtemp0                        (abs)        007E

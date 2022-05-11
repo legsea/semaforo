@@ -1239,29 +1239,41 @@ Version 3.2 HI-TECH Software Intermediate Code
 [n S139 . inteTimer0 leerEntradas primeraLecturaB ]
 [u S138 `uc 1 `S139 1 ]
 [n S138 . genericFlags . ]
-[s S146 `uc 1 `uc 1 `uc 1 `uc 1 ]
-[n S146 . t500useg t100mseg loco t1seg ]
-[s S145 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 ]
-[n S145 . rampa1 rampa2 porton semaforo ]
+[s S146 `uc 1 `uc 1 `uc 1 `uc 1 `uc 1 `uc 1 `uc 1 ]
+[n S146 . t500useg t100mseg loco t1seg antirebote delay delayReloj ]
+[s S145 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 ]
+[n S145 . rampa1 rampa2 porton sincronismo rampa3 ]
 [u S144 `uc 1 `S145 1 ]
 [n S144 . entradas . ]
-[s S147 `uc 1 ]
-[n S147 . antirebote ]
-[s S141 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 ]
-[n S141 . enMovimiento enPiso0 enPiso1 enPiso2 enEmergencia ]
+[s S141 :1 `uc 1 :1 `uc 1 ]
+[n S141 . delay delayReloj ]
 [u S140 `uc 1 `S141 1 ]
 [n S140 . allFlags . ]
-[s S148 `uc 1 `S138 1 `S146 1 `S144 1 `S144 1 `S147 1 `S140 1 ]
-[n S148 . estado systemFlags tiempos entradaB auxEntradaB contador flags ]
-"17 ../main.c
-[v _controlCPU `S148  1 e ]
+[s S147 `uc 1 `S138 1 `S146 1 `S144 1 `S144 1 `S140 1 ]
+[n S147 . estado systemFlags tiempos entradaB auxEntradaB flags ]
+"19 ../main.c
+[v _controlCPU `S147  1 e ]
 [p mainexit ]
 "4 ../config.h
 [v _configDevice `(v  0 ef ]
 "4 ../funciones.h
-[v _controlTiempos `(v  0 ef1`*S148 ]
+[v _controlTiempos `(v  0 ef1`*S147 ]
 "5 ../funciones.h
-[v _leerEntradasB `(v  0 ef1`*S148 ]
+[v _leerEntradasB `(v  0 ef1`*S147 ]
+"6 ../control.h
+[v _initCPU `(v  0 ef1`*S147 ]
+"7 ../control.h
+[v _esperaAccion `(v  0 ef1`*S147 ]
+"8 ../control.h
+[v _rampaUno `(v  0 ef1`*S147 ]
+"9 ../control.h
+[v _rampaDos `(v  0 ef1`*S147 ]
+"10 ../control.h
+[v _rampaTres `(v  0 ef1`*S147 ]
+"12 ../control.h
+[v _llamaPorton `(v  0 ef1`*S147 ]
+"13 ../control.h
+[v _counting `(v  0 ef1`*S147 ]
 [; ;pic16f886.h: 118: volatile unsigned char INDF @ 0x000;
 [; ;pic16f886.h: 122: volatile unsigned char TMR0 @ 0x001;
 [; ;pic16f886.h: 126: volatile unsigned char PCL @ 0x002;
@@ -2500,149 +2512,239 @@ Version 3.2 HI-TECH Software Intermediate Code
 [; ;Header.h: 28: uint8_t allFlags;
 [; ;Header.h: 29: struct
 [; ;Header.h: 30: {
-[; ;Header.h: 31: unsigned enMovimiento : 1;
-[; ;Header.h: 32: unsigned enPiso0 : 1;
-[; ;Header.h: 33: unsigned enPiso1 : 1;
-[; ;Header.h: 34: unsigned enPiso2 : 1;
-[; ;Header.h: 35: unsigned enEmergencia : 1;
-[; ;Header.h: 36: };
-[; ;Header.h: 38: } Flags_t;
-[; ;Header.h: 40: typedef union
+[; ;Header.h: 31: unsigned delay : 1;
+[; ;Header.h: 32: unsigned delayReloj : 1;
+[; ;Header.h: 33: };
+[; ;Header.h: 35: } Flags_t;
+[; ;Header.h: 37: typedef union
+[; ;Header.h: 38: {
+[; ;Header.h: 39: uint16_t twoBytes;
+[; ;Header.h: 40: struct
 [; ;Header.h: 41: {
-[; ;Header.h: 42: uint16_t twoBytes;
-[; ;Header.h: 43: struct
-[; ;Header.h: 44: {
-[; ;Header.h: 45: unsigned low : 8;
-[; ;Header.h: 46: unsigned high : 8;
-[; ;Header.h: 47: };
-[; ;Header.h: 49: } Split_t;
-[; ;Header.h: 51: typedef union
+[; ;Header.h: 42: unsigned low : 8;
+[; ;Header.h: 43: unsigned high : 8;
+[; ;Header.h: 44: };
+[; ;Header.h: 46: } Split_t;
+[; ;Header.h: 48: typedef union
+[; ;Header.h: 49: {
+[; ;Header.h: 50: uint8_t entradas;
+[; ;Header.h: 51: struct
 [; ;Header.h: 52: {
-[; ;Header.h: 53: uint8_t entradas;
-[; ;Header.h: 54: struct
-[; ;Header.h: 55: {
-[; ;Header.h: 56: unsigned rampa1 : 1;
-[; ;Header.h: 57: unsigned rampa2 : 1;
-[; ;Header.h: 58: unsigned porton : 1;
-[; ;Header.h: 59: unsigned semaforo : 1;
-[; ;Header.h: 60: };
-[; ;Header.h: 61: } EntradaB_t;
-[; ;Header.h: 63: typedef struct
-[; ;Header.h: 64: {
-[; ;Header.h: 65: uint8_t t500useg;
-[; ;Header.h: 66: uint8_t t100mseg;
-[; ;Header.h: 67: uint8_t loco;
-[; ;Header.h: 68: uint8_t t1seg;
-[; ;Header.h: 69: } Timers_t;
-[; ;Header.h: 71: typedef struct
-[; ;Header.h: 72: {
-[; ;Header.h: 73: uint8_t antirebote;
-[; ;Header.h: 74: } Contadores_t;
-[; ;Header.h: 76: typedef struct
-[; ;Header.h: 77: {
-[; ;Header.h: 78: uint8_t estado;
-[; ;Header.h: 79: SystemFlags_t systemFlags;
-[; ;Header.h: 80: Timers_t tiempos;
-[; ;Header.h: 81: EntradaB_t entradaB;
-[; ;Header.h: 82: EntradaB_t auxEntradaB;
-[; ;Header.h: 83: Contadores_t contador;
-[; ;Header.h: 84: Flags_t flags;
-[; ;Header.h: 85: } Placa_t;
+[; ;Header.h: 53: unsigned rampa1 : 1;
+[; ;Header.h: 54: unsigned rampa2 : 1;
+[; ;Header.h: 55: unsigned porton : 1;
+[; ;Header.h: 56: unsigned sincronismo : 1;
+[; ;Header.h: 57: unsigned rampa3 : 1;
+[; ;Header.h: 58: };
+[; ;Header.h: 59: } EntradaB_t;
+[; ;Header.h: 61: typedef struct
+[; ;Header.h: 62: {
+[; ;Header.h: 63: uint8_t t500useg;
+[; ;Header.h: 64: uint8_t t100mseg;
+[; ;Header.h: 65: uint8_t loco;
+[; ;Header.h: 66: uint8_t t1seg;
+[; ;Header.h: 67: uint8_t antirebote;
+[; ;Header.h: 68: uint8_t delay;
+[; ;Header.h: 69: uint8_t delayReloj;
+[; ;Header.h: 70: } Timers_t;
+[; ;Header.h: 72: typedef struct
+[; ;Header.h: 73: {
+[; ;Header.h: 74: uint8_t estado;
+[; ;Header.h: 75: SystemFlags_t systemFlags;
+[; ;Header.h: 76: Timers_t tiempos;
+[; ;Header.h: 77: EntradaB_t entradaB;
+[; ;Header.h: 78: EntradaB_t auxEntradaB;
+[; ;Header.h: 79: Flags_t flags;
+[; ;Header.h: 80: } Placa_t;
+[; ;control.h: 6: void initCPU(Placa_t *);
+[; ;control.h: 7: void esperaAccion(Placa_t *);
+[; ;control.h: 8: void rampaUno(Placa_t *);
+[; ;control.h: 9: void rampaDos(Placa_t *);
+[; ;control.h: 10: void rampaTres(Placa_t *);
+[; ;control.h: 12: void llamaPorton(Placa_t *);
+[; ;control.h: 13: void counting(Placa_t *);
 [; ;funciones.h: 4: void controlTiempos(Placa_t *);
 [; ;funciones.h: 5: void leerEntradasB(Placa_t *);
 "14 ../main.c
-[; ;main.c: 14: asm("\tpsect config,class=CONFIG,delta=2"); asm("\tdw ""0xFFFC &0xFFF7 &0xFFEF &0xFFDF &0xFFBF &0xFF7F &0xFFFF &0xFBFF &0xFFFF &0xEFFF");
+[; ;main.c: 14: asm("\tpsect config,class=CONFIG,delta=2"); asm("\tdw ""0XEB04");
 [; 	psect config,class=CONFIG,delta=2 ;#
-[; 	dw 0xFFFC &0xFFF7 &0xFFEF &0xFFDF &0xFFBF &0xFF7F &0xFFFF &0xFBFF &0xFFFF &0xEFFF ;#
-"15
-[; ;main.c: 15: asm("\tpsect config,class=CONFIG,delta=2"); asm("\tdw ""0xFFFF &0xFFFF");
-[; 	psect config,class=CONFIG,delta=2 ;#
-[; 	dw 0xFFFF &0xFFFF ;#
-[; ;main.c: 17: Placa_t controlCPU;
-"20
-[v F1690 `(v  1 tf ]
-[v _interrupciones `IF1690  1 e ]
-{
-[; ;main.c: 19: void interrupt interrupciones(void)
-[; ;main.c: 20: {
-[e :U _interrupciones ]
-[f ]
-[; ;main.c: 21: if (TMR0IE && TMR0IF)
-"21
-[e $ ! && _TMR0IE _TMR0IF 150  ]
-[; ;main.c: 22: {
+[; 	dw 0XEB04 ;#
+[; ;main.c: 19: Placa_t controlCPU;
 "22
-{
-[; ;main.c: 23: TMR0IF = 0;
-"23
-[e = _TMR0IF -> -> 0 `i `b ]
-[; ;main.c: 24: controlCPU.systemFlags.inteTimer0 = 1;
-"24
-[e = . . . _controlCPU 1 1 0 -> -> 1 `i `uc ]
-[; ;main.c: 25: TMR0 = 5;
-"25
-[e = _TMR0 -> -> 5 `i `uc ]
-"26
-}
-[e :U 150 ]
-[; ;main.c: 26: }
-[; ;main.c: 27: }
-"27
-[e :UE 149 ]
-}
-"30
 [v _main `(v  1 ef ]
 {
-[; ;main.c: 29: void main(void)
-[; ;main.c: 30: {
+[; ;main.c: 21: void main(void)
+[; ;main.c: 22: {
 [e :U _main ]
 [f ]
-[; ;main.c: 32: configDevice();
-"32
+[; ;main.c: 24: configDevice();
+"24
 [e ( _configDevice ..  ]
-[; ;main.c: 34: while (1)
+[; ;main.c: 26: controlCPU.estado = 10;
+"26
+[e = . _controlCPU 0 -> -> 10 `i `uc ]
+[; ;main.c: 28: while (1)
+"28
+[e :U 150 ]
+[; ;main.c: 29: {
+"29
+{
+[; ;main.c: 31: if (controlCPU.systemFlags.inteTimer0)
+"31
+[e $ ! != -> . . . _controlCPU 1 1 0 `i -> -> -> 0 `i `uc `i 152  ]
+[; ;main.c: 32: controlTiempos(&controlCPU);
+"32
+[e ( _controlTiempos (1 &U _controlCPU ]
+[e :U 152 ]
+[; ;main.c: 34: if (controlCPU.systemFlags.leerEntradas)
 "34
-[e :U 153 ]
+[e $ ! != -> . . . _controlCPU 1 1 1 `i -> -> -> 0 `i `uc `i 153  ]
 [; ;main.c: 35: {
 "35
 {
-[; ;main.c: 37: if (controlCPU.systemFlags.inteTimer0)
-"37
-[e $ ! != -> . . . _controlCPU 1 1 0 `i -> -> -> 0 `i `uc `i 155  ]
-[; ;main.c: 38: {
-"38
-{
-[; ;main.c: 39: controlTiempos(&controlCPU);
-"39
-[e ( _controlTiempos (1 &U _controlCPU ]
-"40
-}
-[e :U 155 ]
-[; ;main.c: 40: }
-[; ;main.c: 42: if (controlCPU.systemFlags.leerEntradas)
-"42
-[e $ ! != -> . . . _controlCPU 1 1 1 `i -> -> -> 0 `i `uc `i 156  ]
-[; ;main.c: 43: {
-"43
-{
-[; ;main.c: 44: controlCPU.systemFlags.leerEntradas = 0;
-"44
+[; ;main.c: 36: controlCPU.systemFlags.leerEntradas = 0;
+"36
 [e = . . . _controlCPU 1 1 1 -> -> 0 `i `uc ]
-[; ;main.c: 45: leerEntradasB(&controlCPU);
-"45
+[; ;main.c: 37: leerEntradasB(&controlCPU);
+"37
 [e ( _leerEntradasB (1 &U _controlCPU ]
-"46
+"38
 }
+[e :U 153 ]
+[; ;main.c: 38: }
+[; ;main.c: 40: switch (controlCPU.estado)
+"40
+[e $U 155  ]
+[; ;main.c: 41: {
+"41
+{
+[; ;main.c: 42: case 10:
+"42
 [e :U 156 ]
+[; ;main.c: 43: initCPU(&controlCPU);
+"43
+[e ( _initCPU (1 &U _controlCPU ]
+[; ;main.c: 44: break;
+"44
+[e $U 154  ]
+[; ;main.c: 46: case 20:
+"46
+[e :U 157 ]
+[; ;main.c: 47: esperaAccion(&controlCPU);
 "47
-}
-[e :U 152 ]
-"34
-[e $U 153  ]
-[e :U 154 ]
-[; ;main.c: 46: }
-[; ;main.c: 47: }
-[; ;main.c: 48: }
+[e ( _esperaAccion (1 &U _controlCPU ]
+[; ;main.c: 48: break;
 "48
-[e :UE 151 ]
+[e $U 154  ]
+[; ;main.c: 50: case 30:
+"50
+[e :U 158 ]
+[; ;main.c: 51: rampaUno(&controlCPU);
+"51
+[e ( _rampaUno (1 &U _controlCPU ]
+[; ;main.c: 52: break;
+"52
+[e $U 154  ]
+[; ;main.c: 54: case 40:
+"54
+[e :U 159 ]
+[; ;main.c: 55: rampaDos(&controlCPU);
+"55
+[e ( _rampaDos (1 &U _controlCPU ]
+[; ;main.c: 56: break;
+"56
+[e $U 154  ]
+[; ;main.c: 58: case 45:
+"58
+[e :U 160 ]
+[; ;main.c: 59: rampaTres(&controlCPU);
+"59
+[e ( _rampaTres (1 &U _controlCPU ]
+[; ;main.c: 60: break;
+"60
+[e $U 154  ]
+[; ;main.c: 62: case 50:
+"62
+[e :U 161 ]
+[; ;main.c: 63: llamaPorton(&controlCPU);
+"63
+[e ( _llamaPorton (1 &U _controlCPU ]
+[; ;main.c: 64: break;
+"64
+[e $U 154  ]
+[; ;main.c: 66: case 60:
+"66
+[e :U 162 ]
+[; ;main.c: 67: counting(&controlCPU);
+"67
+[e ( _counting (1 &U _controlCPU ]
+[; ;main.c: 68: break;
+"68
+[e $U 154  ]
+[; ;main.c: 70: default:
+"70
+[e :U 163 ]
+[; ;main.c: 71: initCPU(&controlCPU);
+"71
+[e ( _initCPU (1 &U _controlCPU ]
+[; ;main.c: 72: break;
+"72
+[e $U 154  ]
+"73
+}
+[; ;main.c: 73: }
+[e $U 154  ]
+"40
+[e :U 155 ]
+[e [\ . _controlCPU 0 , $ -> -> 10 `i `uc 156
+ , $ -> -> 20 `i `uc 157
+ , $ -> -> 30 `i `uc 158
+ , $ -> -> 40 `i `uc 159
+ , $ -> -> 45 `i `uc 160
+ , $ -> -> 50 `i `uc 161
+ , $ -> -> 60 `i `uc 162
+ 163 ]
+"73
+[e :U 154 ]
+"74
+}
+[e :U 149 ]
+"28
+[e $U 150  ]
+[e :U 151 ]
+[; ;main.c: 74: }
+[; ;main.c: 75: }
+"75
+[e :UE 148 ]
+}
+"78
+[v F1703 `(v  1 tf ]
+[v _interrupciones `IF1703  1 e ]
+{
+[; ;main.c: 77: void interrupt interrupciones(void)
+[; ;main.c: 78: {
+[e :U _interrupciones ]
+[f ]
+[; ;main.c: 79: if (TMR0IE && TMR0IF)
+"79
+[e $ ! && _TMR0IE _TMR0IF 165  ]
+[; ;main.c: 80: {
+"80
+{
+[; ;main.c: 81: TMR0IF = 0;
+"81
+[e = _TMR0IF -> -> 0 `i `b ]
+[; ;main.c: 82: controlCPU.systemFlags.inteTimer0 = 1;
+"82
+[e = . . . _controlCPU 1 1 0 -> -> 1 `i `uc ]
+[; ;main.c: 83: TMR0 = 5;
+"83
+[e = _TMR0 -> -> 5 `i `uc ]
+"84
+}
+[e :U 165 ]
+[; ;main.c: 84: }
+[; ;main.c: 85: }
+"85
+[e :UE 164 ]
 }

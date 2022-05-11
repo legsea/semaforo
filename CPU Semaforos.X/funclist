@@ -1,13 +1,20 @@
-_leerEntradasB: CODE, 125 0 64
+_rampaDos: CODE, 448 0 21
+_leerEntradasB: CODE, 303 0 64
 _configADC: CODE, 97 0 12
-_main: CODE, 228 0 24
+_main: CODE, 125 0 101
+_rampaUno: CODE, 469 0 21
 _configComparadores: CODE, 116 0 4
 _configDevice: CODE, 15 0 19
 _configTimers: CODE, 65 0 32
 _configOscilador: CODE, 120 0 5
+_initCPU: CODE, 526 0 10
 _configPorts: CODE, 34 0 21
 _configCCP: CODE, 109 0 7
-_controlTiempos: CODE, 189 0 39
-_interrupciones: CODE, 252 0 16
+_controlTiempos: CODE, 226 0 77
+_llamaPorton: CODE, 404 0 23
+_rampaTres: CODE, 427 0 21
+_counting: CODE, 490 0 20
+_interrupciones: CODE, 510 0 16
+_esperaAccion: CODE, 367 0 37
 _configInterrupts: CODE, 55 0 10
-Total: 253
+Total: 521

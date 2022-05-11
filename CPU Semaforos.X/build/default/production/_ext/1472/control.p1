@@ -2542,210 +2542,249 @@ Version 3.2 HI-TECH Software Intermediate Code
 [; ;control.h: 13: void counting(Placa_t *);
 [; ;funciones.h: 4: void controlTiempos(Placa_t *);
 [; ;funciones.h: 5: void leerEntradasB(Placa_t *);
-"4 ../funciones.c
-[v _controlTiempos `(v  1 ef1`*S147 ]
+"4 ../control.c
+[v _initCPU `(v  1 ef1`*S147 ]
 {
-[; ;funciones.c: 3: void controlTiempos(Placa_t *this)
-[; ;funciones.c: 4: {
-[e :U _controlTiempos ]
-[v _this `*S147  1 r1 ]
+[; ;control.c: 3: void initCPU(Placa_t *controlCPU)
+[; ;control.c: 4: {
+[e :U _initCPU ]
+[v _controlCPU `*S147  1 r1 ]
 [f ]
-[; ;funciones.c: 5: this->systemFlags.inteTimer0 = 0;
+[; ;control.c: 5: RA0 = 0;
 "5
-[e = . . . *U _this 1 1 0 -> -> 0 `i `uc ]
-[; ;funciones.c: 7: this->tiempos.t500useg++;
+[e = _RA0 -> -> 0 `i `b ]
+[; ;control.c: 6: RA1 = 0;
+"6
+[e = _RA1 -> -> 0 `i `b ]
+[; ;control.c: 7: RA4 = 0;
 "7
-[e ++ . . *U _this 2 0 -> -> 1 `i `uc ]
-[; ;funciones.c: 9: if (this->tiempos.t500useg == 20)
-"9
-[e $ ! == -> . . *U _this 2 0 `i -> 20 `i 149  ]
-[; ;funciones.c: 10: {
-"10
-{
-[; ;funciones.c: 11: this->tiempos.t500useg = 0;
-"11
-[e = . . *U _this 2 0 -> -> 0 `i `uc ]
-[; ;funciones.c: 13: this->systemFlags.leerEntradas = 1;
-"13
-[e = . . . *U _this 1 1 1 -> -> 1 `i `uc ]
-[; ;funciones.c: 15: this->tiempos.t100mseg++;
-"15
-[e ++ . . *U _this 2 1 -> -> 1 `i `uc ]
-[; ;funciones.c: 18: if (this->tiempos.t100mseg == 10)
-"18
-[e $ ! == -> . . *U _this 2 1 `i -> 10 `i 150  ]
-[; ;funciones.c: 19: {
-"19
-{
-[; ;funciones.c: 20: this->tiempos.t100mseg = 0;
-"20
-[e = . . *U _this 2 1 -> -> 0 `i `uc ]
-[; ;funciones.c: 22: if (this->tiempos.delay)
-"22
-[e $ ! != -> . . *U _this 2 5 `i -> -> -> 0 `i `uc `i 151  ]
-[; ;funciones.c: 23: {
-"23
-{
-[; ;funciones.c: 24: this->tiempos.delay--;
-"24
-[e -- . . *U _this 2 5 -> -> 1 `i `uc ]
-[; ;funciones.c: 25: if (!this->tiempos.delay)
-"25
-[e $ ! ! != -> . . *U _this 2 5 `i -> -> -> 0 `i `uc `i 152  ]
-[; ;funciones.c: 26: {
-"26
-{
-[; ;funciones.c: 27: this->flags.delay = 0;
-"27
-[e = . . . *U _this 5 1 0 -> -> 0 `i `uc ]
-"28
-}
-[e :U 152 ]
-"29
-}
-[e :U 151 ]
-[; ;funciones.c: 28: }
-[; ;funciones.c: 29: }
-[; ;funciones.c: 31: if (this->tiempos.delayReloj)
-"31
-[e $ ! != -> . . *U _this 2 6 `i -> -> -> 0 `i `uc `i 153  ]
-[; ;funciones.c: 32: {
-"32
-{
-[; ;funciones.c: 33: this->tiempos.delayReloj--;
-"33
-[e -- . . *U _this 2 6 -> -> 1 `i `uc ]
-[; ;funciones.c: 35: if (this->tiempos.delayReloj == 0)
-"35
-[e $ ! == -> . . *U _this 2 6 `i -> 0 `i 154  ]
-[; ;funciones.c: 36: {
-"36
-{
-[; ;funciones.c: 37: RA3 = 0;
-"37
-[e = _RA3 -> -> 0 `i `b ]
-[; ;funciones.c: 38: RA2 = 0;
-"38
+[e = _RA4 -> -> 0 `i `b ]
+[; ;control.c: 8: RA2 = 0;
+"8
 [e = _RA2 -> -> 0 `i `b ]
-"39
-}
-[e :U 154 ]
-"40
-}
-[e :U 153 ]
-"41
-}
-[e :U 150 ]
-"42
-}
-[e :U 149 ]
-[; ;funciones.c: 39: }
-[; ;funciones.c: 40: }
-[; ;funciones.c: 41: }
-[; ;funciones.c: 42: }
-[; ;funciones.c: 43: }
-"43
+[; ;control.c: 9: RA3 = 0;
+"9
+[e = _RA3 -> -> 0 `i `b ]
+[; ;control.c: 10: controlCPU->estado = 20;
+"10
+[e = . *U _controlCPU 0 -> -> 20 `i `uc ]
+[; ;control.c: 11: }
+"11
 [e :UE 148 ]
 }
-"47
-[v _leerEntradasB `(v  1 ef1`*S147 ]
+"14
+[v _esperaAccion `(v  1 ef1`*S147 ]
 {
-[; ;funciones.c: 46: void leerEntradasB(Placa_t *this)
-[; ;funciones.c: 47: {
-[e :U _leerEntradasB ]
-[v _this `*S147  1 r1 ]
+[; ;control.c: 13: void esperaAccion(Placa_t *controlCPU)
+[; ;control.c: 14: {
+[e :U _esperaAccion ]
+[v _controlCPU `*S147  1 r1 ]
 [f ]
-"48
-[v _auxiliarLectura `uc  1 a ]
+[; ;control.c: 15: if (controlCPU->entradaB.rampa1)
+"15
+[e $ ! != -> . . . *U _controlCPU 3 1 0 `i -> -> -> 0 `i `uc `i 150  ]
+[; ;control.c: 16: controlCPU->estado = 30;
+"16
+[e = . *U _controlCPU 0 -> -> 30 `i `uc ]
+[e :U 150 ]
+[; ;control.c: 18: if (controlCPU->entradaB.rampa2)
+"18
+[e $ ! != -> . . . *U _controlCPU 3 1 1 `i -> -> -> 0 `i `uc `i 151  ]
+[; ;control.c: 19: controlCPU->estado = 40;
+"19
+[e = . *U _controlCPU 0 -> -> 40 `i `uc ]
+[e :U 151 ]
+[; ;control.c: 21: if (controlCPU->entradaB.rampa3)
+"21
+[e $ ! != -> . . . *U _controlCPU 3 1 4 `i -> -> -> 0 `i `uc `i 152  ]
+[; ;control.c: 22: controlCPU->estado = 45;
+"22
+[e = . *U _controlCPU 0 -> -> 45 `i `uc ]
+[e :U 152 ]
+[; ;control.c: 24: if (controlCPU->entradaB.porton)
+"24
+[e $ ! != -> . . . *U _controlCPU 3 1 2 `i -> -> -> 0 `i `uc `i 153  ]
+[; ;control.c: 25: controlCPU->estado = 50;
+"25
+[e = . *U _controlCPU 0 -> -> 50 `i `uc ]
+[e :U 153 ]
+[; ;control.c: 26: }
+"26
+[e :UE 149 ]
+}
+"29
+[v _rampaUno `(v  1 ef1`*S147 ]
+{
+[; ;control.c: 28: void rampaUno(Placa_t *controlCPU)
+[; ;control.c: 29: {
+[e :U _rampaUno ]
+[v _controlCPU `*S147  1 r1 ]
+[f ]
+[; ;control.c: 30: RA0 = 1;
+"30
+[e = _RA0 -> -> 1 `i `b ]
+[; ;control.c: 31: RA3 = 1;
+"31
+[e = _RA3 -> -> 1 `i `b ]
+[; ;control.c: 32: controlCPU->tiempos.delayReloj = 10;
+"32
+[e = . . *U _controlCPU 2 6 -> -> 10 `i `uc ]
+[; ;control.c: 33: controlCPU->tiempos.delay = 20;
+"33
+[e = . . *U _controlCPU 2 5 -> -> 20 `i `uc ]
+[; ;control.c: 34: controlCPU->flags.delay = 1;
+"34
+[e = . . . *U _controlCPU 5 1 0 -> -> 1 `i `uc ]
+[; ;control.c: 35: controlCPU->estado = 60;
+"35
+[e = . *U _controlCPU 0 -> -> 60 `i `uc ]
+[; ;control.c: 36: }
+"36
+[e :UE 154 ]
+}
+"39
+[v _rampaDos `(v  1 ef1`*S147 ]
+{
+[; ;control.c: 38: void rampaDos(Placa_t *controlCPU)
+[; ;control.c: 39: {
+[e :U _rampaDos ]
+[v _controlCPU `*S147  1 r1 ]
+[f ]
+[; ;control.c: 40: RA1 = 1;
+"40
+[e = _RA1 -> -> 1 `i `b ]
+[; ;control.c: 41: RA3 = 1;
+"41
+[e = _RA3 -> -> 1 `i `b ]
+[; ;control.c: 42: controlCPU->tiempos.delayReloj = 10;
+"42
+[e = . . *U _controlCPU 2 6 -> -> 10 `i `uc ]
+[; ;control.c: 43: controlCPU->tiempos.delay = 20;
+"43
+[e = . . *U _controlCPU 2 5 -> -> 20 `i `uc ]
+[; ;control.c: 44: controlCPU->flags.delay = 1;
+"44
+[e = . . . *U _controlCPU 5 1 0 -> -> 1 `i `uc ]
+[; ;control.c: 45: controlCPU->estado = 60;
+"45
+[e = . *U _controlCPU 0 -> -> 60 `i `uc ]
+[; ;control.c: 46: }
+"46
+[e :UE 155 ]
+}
 "49
-[v _diferencia `uc  1 a ]
-[; ;funciones.c: 48: uint8_t auxiliarLectura;
-[; ;funciones.c: 49: uint8_t diferencia;
-[; ;funciones.c: 51: if (!this->systemFlags.primeraLecturaB)
+[v _rampaTres `(v  1 ef1`*S147 ]
+{
+[; ;control.c: 48: void rampaTres(Placa_t *controlCPU)
+[; ;control.c: 49: {
+[e :U _rampaTres ]
+[v _controlCPU `*S147  1 r1 ]
+[f ]
+[; ;control.c: 50: RA4 = 1;
+"50
+[e = _RA4 -> -> 1 `i `b ]
+[; ;control.c: 51: RA3 = 1;
 "51
-[e $ ! ! != -> . . . *U _this 1 1 2 `i -> -> -> 0 `i `uc `i 156  ]
-[; ;funciones.c: 52: {
+[e = _RA3 -> -> 1 `i `b ]
+[; ;control.c: 52: controlCPU->tiempos.delayReloj = 10;
 "52
-{
-[; ;funciones.c: 53: this->systemFlags.primeraLecturaB = 1;
+[e = . . *U _controlCPU 2 6 -> -> 10 `i `uc ]
+[; ;control.c: 53: controlCPU->tiempos.delay = 20;
 "53
-[e = . . . *U _this 1 1 2 -> -> 1 `i `uc ]
-[; ;funciones.c: 54: this->entradaB.entradas = PORTB & 0X1F;
+[e = . . *U _controlCPU 2 5 -> -> 20 `i `uc ]
+[; ;control.c: 54: controlCPU->flags.delay = 1;
 "54
-[e = . . *U _this 3 0 -> & -> _PORTB `i -> 31 `i `uc ]
+[e = . . . *U _controlCPU 5 1 0 -> -> 1 `i `uc ]
+[; ;control.c: 55: controlCPU->estado = 60;
 "55
+[e = . *U _controlCPU 0 -> -> 60 `i `uc ]
+[; ;control.c: 56: }
+"56
+[e :UE 156 ]
 }
-[e :U 156 ]
-[; ;funciones.c: 55: }
-[; ;funciones.c: 57: auxiliarLectura = PORTB & 0X1F;
-"57
-[e = _auxiliarLectura -> & -> _PORTB `i -> 31 `i `uc ]
-[; ;funciones.c: 58: diferencia = this->entradaB.entradas - auxiliarLectura;
-"58
-[e = _diferencia -> - -> . . *U _this 3 0 `i -> _auxiliarLectura `i `uc ]
-[; ;funciones.c: 60: if (diferencia == 0)
+"59
+[v _llamaPorton `(v  1 ef1`*S147 ]
+{
+[; ;control.c: 58: void llamaPorton(Placa_t *controlCPU)
+[; ;control.c: 59: {
+[e :U _llamaPorton ]
+[v _controlCPU `*S147  1 r1 ]
+[f ]
+[; ;control.c: 60: RA2 = 1;
 "60
-[e $ ! == -> _diferencia `i -> 0 `i 157  ]
-[; ;funciones.c: 61: {
+[e = _RA2 -> -> 1 `i `b ]
+[; ;control.c: 61: RA0 = 1;
 "61
-{
-[; ;funciones.c: 62: this->tiempos.antirebote++;
+[e = _RA0 -> -> 1 `i `b ]
+[; ;control.c: 62: RA1 = 1;
 "62
-[e ++ . . *U _this 2 4 -> -> 1 `i `uc ]
-[; ;funciones.c: 63: if (this->tiempos.antirebote == 50)
+[e = _RA1 -> -> 1 `i `b ]
+[; ;control.c: 63: RA4 = 1;
 "63
-[e $ ! == -> . . *U _this 2 4 `i -> 50 `i 158  ]
-[; ;funciones.c: 64: {
+[e = _RA4 -> -> 1 `i `b ]
+[; ;control.c: 64: controlCPU->tiempos.delayReloj = 10;
 "64
-{
-[; ;funciones.c: 65: this->tiempos.antirebote = 0;
+[e = . . *U _controlCPU 2 6 -> -> 10 `i `uc ]
+[; ;control.c: 65: controlCPU->tiempos.delay = 20;
 "65
-[e = . . *U _this 2 4 -> -> 0 `i `uc ]
-[; ;funciones.c: 66: this->entradaB.entradas = auxiliarLectura;
+[e = . . *U _controlCPU 2 5 -> -> 20 `i `uc ]
+[; ;control.c: 66: controlCPU->flags.delay = 1;
 "66
-[e = . . *U _this 3 0 _auxiliarLectura ]
-[; ;funciones.c: 68: if (0)
+[e = . . . *U _controlCPU 5 1 0 -> -> 1 `i `uc ]
+[; ;control.c: 67: controlCPU->estado = 60;
+"67
+[e = . *U _controlCPU 0 -> -> 60 `i `uc ]
+[; ;control.c: 68: }
 "68
-[e $ ! != -> 0 `i -> 0 `i 159  ]
-[; ;funciones.c: 69: this->auxEntradaB.entradas = ~auxiliarLectura;
-"69
-[e = . . *U _this 4 0 -> ~ -> _auxiliarLectura `i `uc ]
-[e $U 160  ]
-"70
-[e :U 159 ]
-[; ;funciones.c: 70: else
-[; ;funciones.c: 71: this->auxEntradaB.entradas = auxiliarLectura;
+[e :UE 157 ]
+}
 "71
-[e = . . *U _this 4 0 _auxiliarLectura ]
-[e :U 160 ]
+[v _counting `(v  1 ef1`*S147 ]
+{
+[; ;control.c: 70: void counting(Placa_t *controlCPU)
+[; ;control.c: 71: {
+[e :U _counting ]
+[v _controlCPU `*S147  1 r1 ]
+[f ]
+[; ;control.c: 72: if (controlCPU->flags.delay == 0)
 "72
-}
-[e :U 158 ]
+[e $ ! == -> . . . *U _controlCPU 5 1 0 `i -> 0 `i 159  ]
+[; ;control.c: 73: {
 "73
-}
-[; ;funciones.c: 72: }
-[; ;funciones.c: 73: }
-[e $U 161  ]
+{
+[; ;control.c: 74: if (controlCPU->entradaB.sincronismo == 1)
 "74
-[e :U 157 ]
-[; ;funciones.c: 74: else
-[; ;funciones.c: 75: {
+[e $ ! == -> . . . *U _controlCPU 3 1 3 `i -> 1 `i 160  ]
+[; ;control.c: 75: {
 "75
 {
-[; ;funciones.c: 76: auxiliarLectura = 0;
+[; ;control.c: 76: RA0 = 0;
 "76
-[e = _auxiliarLectura -> -> 0 `i `uc ]
-[; ;funciones.c: 77: diferencia = 0;
+[e = _RA0 -> -> 0 `i `b ]
+[; ;control.c: 77: RA1 = 0;
 "77
-[e = _diferencia -> -> 0 `i `uc ]
-[; ;funciones.c: 78: this->systemFlags.primeraLecturaB = 0;
+[e = _RA1 -> -> 0 `i `b ]
+[; ;control.c: 78: RA4 = 0;
 "78
-[e = . . . *U _this 1 1 2 -> -> 0 `i `uc ]
+[e = _RA4 -> -> 0 `i `b ]
+[; ;control.c: 79: RA2 = 0;
 "79
-}
-[e :U 161 ]
-[; ;funciones.c: 79: }
-[; ;funciones.c: 80: }
+[e = _RA2 -> -> 0 `i `b ]
+[; ;control.c: 80: RA3 = 0;
 "80
-[e :UE 155 ]
+[e = _RA3 -> -> 0 `i `b ]
+[; ;control.c: 81: controlCPU->estado = 20;
+"81
+[e = . *U _controlCPU 0 -> -> 20 `i `uc ]
+"82
+}
+[e :U 160 ]
+"83
+}
+[e :U 159 ]
+[; ;control.c: 82: }
+[; ;control.c: 83: }
+[; ;control.c: 84: }
+"84
+[e :UE 158 ]
 }

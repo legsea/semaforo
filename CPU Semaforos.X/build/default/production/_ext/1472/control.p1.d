@@ -1,4 +1,4 @@
-build/default/production/_ext/1472/funciones.p1:	\
+build/default/production/_ext/1472/control.p1:	\
 	../control.h	\
 	../16F886.h	\
 	../funciones.h	\
